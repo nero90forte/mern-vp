@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import "chart.js/auto";
-import { json, useParams } from 'react-router-dom';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore from 'swiper';
-import { useSelector } from 'react-redux';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css/bundle';
+import 'react-datepicker/dist/react-datepicker.css';
 
-export default function Monitor() {
+export default function Monitor({onFilterSubmit}) {
     const [log, setLog] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    // Datepicker
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+
+    const handleSubmit = () => {
+      onFilterSubmit({ startDate, endDate });
+    };
 
     useEffect(() => {
         const fetchLog = async () => {
@@ -39,7 +41,7 @@ export default function Monitor() {
         labels: log?.map(item => item.time_created), // X-axis labels
         datasets: [
           {
-            label: 'rrRMS per 100 data',
+            label: 'rrRMS',
             data: log?.map(item => item.rrRMS), // Y-axis data points
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
@@ -51,8 +53,20 @@ export default function Monitor() {
         labels: log?.map(item => item.time_created), // X-axis labels
         datasets: [
           {
-            label: 'HR per 100 data',
+            label: 'HR',
             data: log?.map(item => item.HR), // Y-axis data points
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            fill: false,
+          },
+        ],
+      };
+      const RR = {
+        labels: log?.map(item => item.time_created), // X-axis labels
+        datasets: [
+          {
+            label: 'RR',
+            data: log?.map(item => item.RR), // Y-axis data points
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
             fill: false,
@@ -61,13 +75,26 @@ export default function Monitor() {
       };
 
   return (
-    <main className= 'flexjustify-between items-center max-w-6xl mx-auto p-3'>
-     <div style={{ height: '400px' }}>
-        <Line data={rrRMS} />
-     </div>
-     <div style={{ height: '400px' }}>
-        <Line data={HR} />
-     </div>
+    <main>
+       {/* <div>
+        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+        <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+        <button onClick={handleSubmit}>Apply Filter</button>
+      </div> */}
+       <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+        <div style={{ height: '400px', width:'800px' }}>
+            <Line data={rrRMS} />
+        </div>
+        <div style={{ height: '400px', width:'800px'  }}>
+            <Line data={HR} />
+        </div>
+      </div>
+      <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+        <div style={{ height: '400px', width:'1000px'  }}>
+          <Line data={RR} />
+        </div>
+      </div>
     </main>
+   
   )
 }

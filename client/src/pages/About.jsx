@@ -9,15 +9,12 @@ export default function About() {
       <h5 className='text-2xl font-bold mb-4 text-slate-800'>MISSION</h5>
       <p className='mb-4 text-slate-700'>Building a world-class reputation for research and researchers. This requires topic alignment, researcher competence, facility feasibility, high activity and the rise of global partnerships in the field of ICT research.Encouraging the development of commercial, entrepreneurship and industrial products in the ICT field. This is also indicated by the significant contribution of the ICT sector to ITB revenue.</p>
       <h5 className='text-2xl font-bold mb-4 text-slate-800'>CONTACT</h5>
-      <p className='mb-1 text-slate-700'>Research Center for Information and Communication Technology (PPTIK) 
+      <p className='mb-1 text-slate-700'>Research Center for Information and Communication Technology (PPTIK)</p>
       <p className='mb-1 text-slate-700'>Head of PP : Dr. Ary Setijadi Prihatmanto, ST., MT.</p>
       <p className='mb-1 text-slate-700'>Address : 4th Floor, Gd. Litbang Integrasi dan Aplikasi (PAU)</p>
       <p className='mb-1 text-slate-700'>Jl. Tamansari No. 126, Bandung 40132, Indonesia</p>
       <p className='mb-1 text-slate-700'>Phone: +62-22-4254034 / 0811 2298 086 | Fax: +62-22-2508763</p>
       <p className='mb-1 text-slate-700'>Email : yuliawati.pptik@gmail.com</p>
-      
-
-</p>
     </div>
   )
 }

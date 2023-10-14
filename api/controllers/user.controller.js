@@ -6,7 +6,7 @@ import Log from '../models/log.model.js';
 
 export const test = async (req, res, next)  => {
   try {
-    const Logs = await Log.find().sort({_id: -1}).limit(100);
+    const Logs = await Log.find().sort({_id: -1}).limit(500);
     if (!Logs) {
       return next(errorHandler(404, 'Log not found!'));
     }
