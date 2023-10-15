@@ -15,6 +15,22 @@ export default function Monitor({onFilterSubmit}) {
       onFilterSubmit({ startDate, endDate });
     };
 
+      const [isHRVisible, setHRIsVisible] = useState(false);
+      const [isRRVisible, setRRIsVisible] = useState(false);
+      const [isrrRMSVisible, setrrRMSIsVisible] = useState(false);
+
+      const toggleVisibilityHR = () => {
+        setHRIsVisible(!isHRVisible);
+      };
+
+      const toggleVisibilityRR = () => {
+        setRRIsVisible(!isRRVisible);
+      };
+      
+        const toggleVisibilityrrRMS = () => {
+          setrrRMSIsVisible(!isrrRMSVisible);
+        };
+
     useEffect(() => {
         const fetchLog = async () => {
           try {
@@ -81,18 +97,36 @@ export default function Monitor({onFilterSubmit}) {
         <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
         <button onClick={handleSubmit}>Apply Filter</button>
       </div> */}
+      <div className="flex justify-between items-center max-w-2xl mx-auto p-2">
+      <button onClick={toggleVisibilityHR}>
+        {isHRVisible ? 'Hide HR' : 'Show HR'}
+      </button>
+      <button onClick={toggleVisibilityRR}>
+        {isRRVisible ? 'Hide RR' : 'Show RR'}
+      </button>
+      <button onClick={toggleVisibilityrrRMS}>
+        {isrrRMSVisible ? 'Hide rrRMS' : 'Show rrRMS'}
+      </button>
+      </div>
+      
        <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+       {isrrRMSVisible && (
         <div style={{ height: '400px', width:'800px' }}>
             <Line data={rrRMS} />
         </div>
+       )}
+        {isHRVisible && (
         <div style={{ height: '400px', width:'800px'  }}>
             <Line data={HR} />
         </div>
+        )}
       </div>
       <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+      {isRRVisible && (
         <div style={{ height: '400px', width:'1000px'  }}>
           <Line data={RR} />
         </div>
+      )}
       </div>
     </main>
    
