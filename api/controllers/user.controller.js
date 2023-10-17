@@ -7,7 +7,7 @@ export const test = async (req, res, next)  => {
   try {
     // const user = await User.findById(req.params.id);
     const currentDate = new Date();
-    const Logs = await Log.find().sort({_id: -1}).limit(500);
+    const Logs = await Log.find().sort({_id: -1}).limit(1000);
     if (!Logs) {
       return next(errorHandler(404, 'Log not found!'));
     }
