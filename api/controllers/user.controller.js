@@ -1,11 +1,11 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import Log from '../models/log.model.js';
-// import { errorHandler } from '../utils/error.js';
-// import Listing from '../models/listing.model.js';
+import { errorHandler } from '../utils/error.js';
 
 export const test = async (req, res, next)  => {
   try {
+    // const user = await User.findById(req.params.id);
     const currentDate = new Date();
     const Logs = await Log.find().sort({_id: -1}).limit(500);
     if (!Logs) {
