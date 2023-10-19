@@ -35,7 +35,6 @@
   
           </div>
           <div className="mx-auto max-w-4xl pb-10 text-center md:pb-16">
-      
                 <h5 className="leading-tighter font-heading mb-1 text-1xl font-bold tracking-tighter md:text-2xl">
                   Only 3 probability classification for this women:
                 </h5>
