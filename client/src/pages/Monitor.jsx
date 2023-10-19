@@ -115,6 +115,8 @@ export default function Monitor({onFilterSubmit}) {
             <Line data={rrRMS} />
         </div>
        )}
+       </div>
+      <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
         {isHRVisible && (
         <div style={{ height: '400px', width:'800px'  }}>
             <Line data={HR} />
@@ -123,7 +125,7 @@ export default function Monitor({onFilterSubmit}) {
       </div>
       <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
       {isRRVisible && (
-        <div style={{ height: '400px', width:'1000px'  }}>
+        <div style={{ height: '400px', width:'800px'  }}>
           <Line data={RR} />
         </div>
       )}
