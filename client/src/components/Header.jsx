@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import logo from '../assets/logo.png';
+
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);

@@ -1,5 +1,5 @@
     import React from 'react'
-    
+    import Hero1 from '../assets/images/hero.jpg';
     export default function Home() {
       return (
         <section>
@@ -21,6 +21,7 @@
            <div className="flex-flow flex">
             <div className="flex mx-auto max-w-2xl pb-10 text-center md:pb-16">
               <div className="relative m-auto max-w-2xl">
+              
                 <img src="" alt="" className="mx-auto h-auto w-full rounded-md bg-gray-400 dark:bg-slate-700" />   
               </div>
             </div> 
@@ -119,7 +120,7 @@
                           </div>
                         </div>
                         <div className="ml-4">
-                          <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white text-justify"></h3>
+                          <h3 className="text-lg font-medium leading-6 text-gray-900 text-justify">Traditional Health System</h3>
                           <p className="mt-2 text-gray-600 dark:text-slate-400 text-justify"></p>
                         </div>
                   </div>
@@ -146,7 +147,26 @@
         {/* end of smart health system */}
 
         {/* Faqs */}
-
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"> 
+          <p Classname="text-3xl sm:text-4xl"></p> 
+          <div className="max-w-screen-xl sm:mx-auto">
+            <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2 lg:gap-x-16">
+                <div className="space-y-8">
+                  
+                    <h3 className="mb-4 text-xl font-bold">
+                      {/* <IconArrowDownRight
+                        name="tabler:arrow-down-right"
+                        className="inline-block h-7 w-7 text-primary-800"
+                      /> */}
+                      {/* title */}
+                    </h3>
+                    <div className="text-gray-700 dark:text-gray-400 text-justify">desc</div>
+                  
+                </div>
+            </div>
+          </div>
+        </div>
+  
         {/* end of Faqs */}
 
         {/* Contact */}
