@@ -28,6 +28,10 @@ const UserSchema = new mongoose.Schema(
           default: "",
           type: String,
         },
+        guid: {
+          type: String,
+          default: "",
+        },
         role: {
           type: String,
           default: "user",

@@ -6,14 +6,14 @@ import { errorHandler } from '../utils/error.js';
 export const test = async (req, res, next)  => {
   try {
     // const user = await User.findById(req.params.id);
-    const device_id = 'C0680226';
+    // const device_id = 'C0680226';
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based, so add 1 and pad with 0 if necessary
     const day = String(currentDate.getDate()).padStart(2, '0'); // Pad with 0 if necessary
     const formattedDate = `${year}-${month}-${day}`;
     // Query for get data
-    const Logs = await Log.find({guid_device: device_id, date: formattedDate  }).sort({_id: -1});
+    const Logs = await Log.find().sort({_id: -1}).limit(1000);
     if (!Logs) {
       return next(errorHandler(404, 'Log not found!'));
     }
@@ -22,6 +22,10 @@ export const test = async (req, res, next)  => {
     next(error);
   }
 };
+
+
+
+
 
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)

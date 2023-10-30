@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
+import garminRouter from './routes/garmin.route.js';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 dotenv.config();
@@ -30,7 +31,7 @@ app.listen(3000, () => {
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
-
+app.use('/api/garmin', garminRouter);
 app.use(express.static(path.join(__dirname, '/client/dist')));
 
 app.get('*', (req, res) => {
