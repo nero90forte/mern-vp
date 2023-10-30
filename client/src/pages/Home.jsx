@@ -21,8 +21,7 @@
            <div className="flex-flow flex">
             <div className="flex mx-auto max-w-2xl pb-10 text-center md:pb-16">
               <div className="relative m-auto max-w-2xl">
-              
-                <img src="" alt="" className="mx-auto h-auto w-full rounded-md bg-gray-400 dark:bg-slate-700" />   
+                <img src={Hero1} alt="" className="mx-auto h-full w-full rounded-md bg-gray-400 dark:bg-slate-700" />   
               </div>
             </div> 
           <div className="flex mx-auto max-w-2xl pb-10 text-center md:pb-16">

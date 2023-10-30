@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-
+import Logo from '../assets/images/logo.png';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -17,6 +17,7 @@ export default function Header() {
             <span className='text-slate-500'>Vidya</span>
             <span className='text-slate-700'>Medic</span>
           </h1>
+         
         </Link>
         
        

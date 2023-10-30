@@ -44,21 +44,14 @@ export default function SignIn() {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
-      <OAuth />
-            <span class="mb-2 text-gray-900">Or</span>
+      
+     
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input
           type='email'
           placeholder='email'
           className='border p-3 rounded-lg'
           id='email'
-          onChange={handleChange}
-        />
-          <input
-          type='text'
-          placeholder='Guid Device'
-          className='border p-3 rounded-lg'
-          id='guid'
           onChange={handleChange}
         />
         <input
@@ -76,6 +69,8 @@ export default function SignIn() {
           {loading ? 'Loading...' : 'Sign In'}
         </button>
       </form>
+      <span class="mb-2 flex text-center justify-center text-gray-900">Or</span>
+      <OAuth />
       <div className='flex gap-2 mt-5'>
         <p>Dont have an account?</p>
         <Link to={'/sign-up'}>

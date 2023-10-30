@@ -13,8 +13,8 @@ export default function About() {
       <p className='mb-1 text-slate-700'>Head of PP : Dr. Ary Setijadi Prihatmanto, ST., MT.</p>
       <p className='mb-1 text-slate-700'>Address : 4th Floor, Gd. Litbang Integrasi dan Aplikasi (PAU)</p>
       <p className='mb-1 text-slate-700'>Jl. Tamansari No. 126, Bandung 40132, Indonesia</p>
-      <p className='mb-1 text-slate-700'>Phone: +62-22-4254034 / 0811 2298 086 | Fax: +62-22-2508763</p>
-      <p className='mb-1 text-slate-700'>Email : yuliawati.pptik@gmail.com</p>
+      <p className='mb-1 text-slate-700'>Phone: +62 813-1270-2005</p>
+      <p className='mb-1 text-slate-700'>Email : vidya@pptik.itb.ac.id</p>
     </div>
   )
 }
