@@ -1,9 +1,9 @@
 import express from 'express';
-import { post } from '../controllers/garmin.controller.js';
+import { getPing } from '../controllers/garmin.controller.js';
 
 const router = express.Router();
 
-router.post("/post", post);
+router.post("/getPing", getPing);
 
 
 export default router;

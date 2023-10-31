@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 
-async function getPing() {
+export async function getPing() {
   const tokenResponse = await fetch('https://connectapi.garmin.com/v3/oauth/token', {
     method: 'POST',
     headers: {
