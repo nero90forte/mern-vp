@@ -27,7 +27,7 @@
   
 //   const https = require('https')
 
-function post(url, data) {
+export function post(url, data) {
   const dataString = JSON.stringify(data)
 
   const options = {
