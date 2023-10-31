@@ -1,6 +1,31 @@
 
+import Garmin from '../public/garmin/';
 
-// export const post = async (req, res, next)  => {
+const fetch = require('node-fetch');
+
+export const post = async (req, res, next)  => {
+  const apiUrl = 'https://example.com/api/endpoint'; // Replace this with the URL of your API endpoint
+  const postData = {
+    key1: 'value1',
+    key2: 'value2'
+  };
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(postData),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Success:', data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
 //     const http = require("http");
   
 //     const hostname = "0.0.0.0";
@@ -67,4 +92,4 @@
 //   })
 // }
     
-// const res = await post('https://...', data)
+// const res = await post('https://...', data
