@@ -10,7 +10,10 @@ import {
     getPingstress,
     getPingthirdpartydailies,
     getPinguser,
-    getPingusermetrics
+    getPingusermetrics,
+    getPingbloodpressure,
+    getPinghrvsummary,
+    getPinghealthsanpshot
      } from '../controllers/garmin.controller.js';
 
 const router = express.Router();
@@ -26,5 +29,8 @@ router.post("/getPingstress", getPingstress);
 router.post("/getPingthirdpartydailies", getPingthirdpartydailies);
 router.post("/getPinguser", getPinguser);
 router.post("/getPingusermetrics", getPingusermetrics);
+router.post("/getPingbloodpressure", getPingbloodpressure);
+router.post("/getPinghrvsummary", getPinghrvsummary);
+router.post("/getPinghealthsanpshot", getPinghealthsanpshot);
 
 export default router;
