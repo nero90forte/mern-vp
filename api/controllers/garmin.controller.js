@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
+const clientId = "512a889e-af52-4575-90fe-4b58313f2a04";
+const clientSecret = "0Rfm7a636xd9JpizLA58HprXe8URsK7max";
 
 // bodycomposition
 export async function getPingbodycomposition() {
@@ -345,7 +345,7 @@ export async function getPingusermetrics() {
   }
 }
 
-//   bloodpressure
+//   bloodpressure 
 export async function getPingbloodpressure() {
   const tokenResponse = await fetch('https://connectapi.garmin.com/v3/oauth/token', {
     method: 'POST',
