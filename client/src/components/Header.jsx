@@ -34,7 +34,7 @@ export default function Header() {
           </Link>
           <Link to='/monitor'>
             {currentUser ? (
-              <p>Monitoring</p>
+              <p>Dashboard</p>
             ) : (
               <li className=' text-slate-700 hover:underline'></li>
             )}

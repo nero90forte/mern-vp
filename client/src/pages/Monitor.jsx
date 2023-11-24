@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+
 import "chart.js/auto";
 import 'react-datepicker/dist/react-datepicker.css';
+import Side from "../components/Side";
 
-export default function Monitor({onFilterSubmit}) {
+export default function Monitor() {
+
     const [log, setLog] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -11,9 +14,9 @@ export default function Monitor({onFilterSubmit}) {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
-    const handleSubmit = () => {
-      onFilterSubmit({ startDate, endDate });
-    };
+    // const handleSubmit = () => {
+    //   onFilterSubmit({ startDate, endDate });
+    // };
 
       const [isHRVisible, setHRIsVisible] = useState(false);
       const [isRRVisible, setRRIsVisible] = useState(false);
@@ -91,46 +94,55 @@ export default function Monitor({onFilterSubmit}) {
       };
 
   return (
-    <main>
-       {/* <div>
-        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-        <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-        <button onClick={handleSubmit}>Apply Filter</button>
-      </div> */}
-      <div className="flex justify-between items-center max-w-2xl mx-auto p-2">
-      <button onClick={toggleVisibilityHR}>
-        {isHRVisible ? 'Hide HR' : 'Show HR'}
-      </button>
-      <button onClick={toggleVisibilityRR}>
-        {isRRVisible ? 'Hide RR' : 'Show RR'}
-      </button>
-      <button onClick={toggleVisibilityrrRMS}>
-        {isrrRMSVisible ? 'Hide rrRMS' : 'Show rrRMS'}
-      </button>
-      </div>
-      
-       <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
-       {isrrRMSVisible && (
-        <div style={{ height: '400px', width:'800px' }}>
-            <Line data={rrRMS} />
+    <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
+      <main>
+         <div className="flex justify-between items-center max-w-2xl mx-auto p-2">
+      <Side />
+       
+        
+        {/* <div>
+          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+          <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+          <button onClick={handleSubmit}>Apply Filter</button>
+        </div> */}
+        <div className="flex justify-between items-center max-w-2xl mx-auto p-2">
+        <button onClick={toggleVisibilityHR}>
+          {isHRVisible ? 'Hide HR' : 'Show HR'}
+        </button>
+        <button onClick={toggleVisibilityRR}>
+          {isRRVisible ? 'Hide RR' : 'Show RR'}
+        </button>
+        <button onClick={toggleVisibilityrrRMS}>
+          {isrrRMSVisible ? 'Hide rrRMS' : 'Show rrRMS'}
+        </button>
         </div>
-       )}
-       </div>
-      <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
-        {isHRVisible && (
-        <div style={{ height: '400px', width:'800px'  }}>
-            <Line data={HR} />
-        </div>
+        
+        <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+        {isrrRMSVisible && (
+          <div style={{ height: '400px', width:'800px' }}>
+              <Line data={rrRMS} />
+          </div>
         )}
-      </div>
-      <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
-      {isRRVisible && (
-        <div style={{ height: '400px', width:'800px'  }}>
-          <Line data={RR} />
         </div>
-      )}
-      </div>
-    </main>
-   
+        <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+          {isHRVisible && (
+          <div style={{ height: '400px', width:'800px'  }}>
+              <Line data={HR} />
+          </div>
+          )}
+        </div>
+        <div className= 'flex justify-between items-center max-w-7xl mx-auto p-3'>
+        {isRRVisible && (
+          <div style={{ height: '400px', width:'800px'  }}>
+            <Line data={RR} />
+          </div>
+        )}
+        </div>
+
+        </div>
+    
+      
+      </main>
+    </div>
   )
 }
