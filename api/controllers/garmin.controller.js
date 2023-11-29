@@ -3,57 +3,88 @@ import crypto from 'crypto';
 
 const uploadStartTimeInSeconds = 1699942980;
 const uploadEndTimeInSeconds = 1700263380;
-const UserAccessToken = "907211bd-de4e-49c7-836e-997d39b8e92d";
-const UserId = "719b2e07-5f39-4f4e-9ebf-802bb55dde8e";
-// const Authorization = {
-//   oauth_consumer_key: "512a889e-af52-4575-90fe-4b58313f2a04", 
-//   oauth_nonce: "VPwnsifewmko213%3Fasrwg", 
-//   oauth_signature_method:"HMAC-SHA1", 
-//   oauth_timestamp: "1699891200", 
-//   oauth_version:"1.0"
-// };
+const UserAccessToken = process.env.UserAccessToken;
+const UserId = process.env.UserId;
+const ClientSecret = process.env.CLIENT_SECRET;
+// Timestamps
+function getCurrentUnixTimestamp() {
+  // Get the current time
+  const currentTime = new Date();
 
-// const Pingpush = {
-//   UserAccessToken: UserId, 
-//   uploadStartTimeInSeconds: "1700117069",
-//   uploadEndTimeInSeconds: "1700203469",
-//   callbackURL:"https://apis.garmin.com/wellness-api/rest/epochs?uploadStartTimeInSeconds=1700117069&uploadEndTimeInSeconds=1700203469"
-// }
+  // Get the Unix timestamp (milliseconds since January 1, 1970)
+  const unixTimestamp = currentTime.getTime();
 
-// const Param = {
-// oauth_nonce: "VPwnsifewmko213%3Fasrwg", 
-// oauth_signature: "OFYKkMAADAVff64AwrUU9focksw%3D", 
-// oauth_token: UserId, 
-// oauth_consumer_key: "512a889e-af52-4575-90fe-4b58313f2a04", 
-// oauth_timestamp: "1699891200", 
-// oauth_signature_method:"HMAC-SHA1", 
-// oauth_version:"1.0"
-// }
-// const UATSecret = "1qh5EHLKdLeoTxPqg6eVKRM2o07IutX5I6z";
+  // Convert milliseconds to seconds (Unix timestamp is usually in seconds)
+  const unixTimestampInSeconds = Math.floor(unixTimestamp / 1000);
+
+  return unixTimestampInSeconds;
+}
+
+// Example usage
+const currentUnixTimestamp = getCurrentUnixTimestamp();
+console.log('Current Unix timestamp:', currentUnixTimestamp);
 
 
-// function encodeParametersWithHmacSha1(Authorization, UATSecret) {
-//   // Sort the parameters alphabetically by key
-//   const sortedParams = Object.keys(Authorization).sort();
-//   // Create a string by concatenating parameter key-value pairs
-//   const paramString = sortedParams.map(key => `${key}=${Authorization[key]}`).join('&');
-//   // Create an HMAC-SHA1 hash of the parameter string using the secret key
-//   const hmac = crypto.createHmac('sha1', UATSecret);
-//   hmac.update(paramString);
-//   // Get the hexadecimal representation of the hash
-//   const encodedParams = hmac.digest('hex');
+// Function to encode parameters with HMAC-SHA1
+function encodeParametersWithHmacSha1(parameters, secretKey) {
+  // Sort the parameters alphabetically by key
+  const sortedParams = Object.keys(parameters).sort();
 
-//   return encodedParams;
-// }
+  // Create a string by concatenating parameter key-value pairs
+  const paramString = sortedParams.map(key => `${key}=${parameters[key]}`).join('&');
 
+  // Create an HMAC-SHA1 hash of the parameter string using the secret key
+  const hmac = crypto.createHmac('sha1', secretKey);
+  hmac.update(paramString);
 
-// const encodedParams = encodeParametersWithHmacSha1(Authorization, UATSecret);
+  // Get the hexadecimal representation of the hash
+  const encodedParams = hmac.digest('hex');
+
+  return encodedParams;
+}
+
+// Example usage
+const parameters = {
+  oauth_consumer_key: '512a889e-af52-4575-90fe-4b58313f2a04',
+  oauth_nonce: 'VPwnsifewmko213%3Fasrwg',
+  oauth_signature_method: 'HMACSHA1',
+  oauth_timestamp: currentUnixTimestamp,
+  oauth_version: '1.0'
+};
+
+const secretKey = '0Rfm7a636xd9JpizLA58HprXe8URsK7maxs&';
+const encodedParams = encodeParametersWithHmacSha1(parameters, secretKey);
+console.log('Encoded parameters:', encodedParams);
 
 // bodycomposition
+
+async function getAuthorization() {
+  const Ping = await fetch('https://connectapi.garmin.com/oauth-service/oauth/request_token' ,{
+    method: 'POST',
+    headers: {
+      Authorization: {
+        oauth_version:"1.0", 
+        oauth_consumer_key:"512a889e-af52-4575-90fe-4b58313f2a04", 
+        oauth_timestamp: currentUnixTimestamp, 
+        oauth_nonce:"VPwnsifewmko213%3Fasrwg",
+        oauth_signature_method:"HMAC-SHA1",
+        oauth_signature: encodedParams
+      }
+    }
+  });
+  if (Ping.ok){
+    const pingData = await Ping.json();
+    console.log('Ping Response:', pingData);
+  } else {
+    console.error('Error get oauth:', Ping.statusText);
+  } 
+}
+getAuthorization()
+
 export async function getPingbodycomposition() {
   
-  const Ping = await fetch('https://apis.garmin.com/wellness-api/rest/bodycomposition', {
-    method: 'POST',
+  const Ping = await fetch(`https://apis.garmin.com/wellness-api/rest/bodyComps?uploadStartTimeInSeconds=${uploadStartTimeInSeconds}&uploadEndTimeInSeconds=${uploadEndTimeInSeconds}`, {
+    method: 'POST', 
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -63,7 +94,7 @@ export async function getPingbodycomposition() {
         "UserAccessToken": UserAccessToken,
         "uploadStartTimeInSeconds": uploadStartTimeInSeconds,
         "uploadEndTimeInSeconds": uploadEndTimeInSeconds,
-        "callbackURL": `https://apis.garmin.com/wellness-api/rest/bodycomposition?uploadStartTimeInSeconds=${uploadStartTimeInSeconds}&uploadEndTimeInSeconds=${uploadEndTimeInSeconds}`
+        "callbackURL": `https://apis.garmin.com/wellness-api/rest/bodyComps?uploadStartTimeInSeconds=${uploadStartTimeInSeconds}&uploadEndTimeInSeconds=${uploadEndTimeInSeconds}`
         }]
     },
   });
@@ -72,7 +103,7 @@ export async function getPingbodycomposition() {
     console.log('Ping Response:', pingData);
   } else {
     console.error('Error fetching ping data:', Ping.statusText);
-  }
+  } 
 }
 
 // dailies
@@ -527,21 +558,21 @@ export async function getPingactivitesmovelQ() {
 }
 
 getPingbodycomposition();
-getPingdailies();
-getPingderegistration();
-getPingepochs();
-getPingpulseox();
-getPingrespiration();
-getPingsleeps();
-getPingstress();
-getPingthirdpartydailies();
-getPinguser();
-getPingusermetrics();
-getPingbloodpressure();
-getPinghrvsummary();
-getPinghealthsanpshot();
-getPingactivites();
-getPingactivitesdetails();
-getPingactivitesfiles();
-getPingactivitesmovelQ();
-getPingmanuallyupdatedactivites();
+// getPingdailies();
+// getPingderegistration();
+// getPingepochs();
+// getPingpulseox();
+// getPingrespiration();
+// getPingsleeps();
+// getPingstress();
+// getPingthirdpartydailies();
+// getPinguser();
+// getPingusermetrics();
+// getPingbloodpressure();
+// getPinghrvsummary();
+// getPinghealthsanpshot();
+// getPingactivites();
+// getPingactivitesdetails();
+// getPingactivitesfiles();
+// getPingactivitesmovelQ();
+// getPingmanuallyupdatedactivites();
