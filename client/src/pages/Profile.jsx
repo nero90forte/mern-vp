@@ -1,24 +1,60 @@
 import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
 import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
-  deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  deleteUserFailure,
   signOutUserStart,
 } from '../redux/user/userSlice';
-import { signOut } from 'firebase/auth';
 
 export default function Profile() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
+  const [image, setImage] = useState(undefined);
+  const [imagePercent, setImagePercent] = useState(0);
+  const [imageError, setImageError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   const { currentUser, loading, error } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (image) {
+      handleFileUpload(image);
+    }
+  }, [image]);
+  const handleFileUpload = async (image) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getTime() + image.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, image);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setImagePercent(Math.round(progress));
+      },
+      (error) => {
+        setImageError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) =>
+          setFormData({ ...formData, profilePicture: downloadURL })
+        );
+      }
+    );
+  };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
@@ -65,36 +101,53 @@ export default function Profile() {
 
   const handleSignOut = async () => {
     try {
-      dispatch(signOutUserStart());
-      const res = await fetch('/api/auth/signout');
-      const data = await res.json();
-      if (data.success === false) {
-        dispatch(deleteUserFailure(data.message));
-        return;
-      }
-      dispatch(deleteUserSuccess(data));
+      await fetch('/api/auth/signout');
+      dispatch(signOut())
     } catch (error) {
-      dispatch(deleteUserFailure(data.message));
+      console.log(error);
     }
   };
-  
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-      <input
-          defaultValue={currentUser.guid}
-          type='text'
-          id='guid'
-          placeholder='guid'
-          className='bg-slate-100 rounded-lg p-3'
-          onChange={handleChange}
+        <input
+          type='file'
+          ref={fileRef}
+          hidden
+          accept='image/*'
+          onChange={(e) => setImage(e.target.files[0])}
         />
+        {/* 
+      firebase storage rules:  
+      allow read;
+      allow write: if
+      request.resource.size < 2 * 1024 * 1024 &&
+      request.resource.contentType.matches('image/.*') */}
+        <img
+          src={formData.profilePicture || currentUser.profilePicture}
+          alt='profile'
+          className='h-24 w-24 self-center cursor-pointer rounded-full object-cover mt-2'
+          onClick={() => fileRef.current.click()}
+        />
+        <p className='text-sm self-center'>
+          {imageError ? (
+            <span className='text-red-700'>
+              Error uploading image (file size must be less than 2 MB)
+            </span>
+          ) : imagePercent > 0 && imagePercent < 100 ? (
+            <span className='text-slate-700'>{`Uploading: ${imagePercent} %`}</span>
+          ) : imagePercent === 100 ? (
+            <span className='text-green-700'>Image uploaded successfully</span>
+          ) : (
+            ''
+          )}
+        </p>
         <input
           defaultValue={currentUser.name}
           type='text'
           id='name'
-          placeholder='name'
+          placeholder='Name'
           className='bg-slate-100 rounded-lg p-3'
           onChange={handleChange}
         />
@@ -106,26 +159,26 @@ export default function Profile() {
           className='bg-slate-100 rounded-lg p-3'
           onChange={handleChange}
         />
+         <input
+          defaultValue={currentUser.phone_number}
+          type='text'
+          id='phone_number'
+          placeholder='Phone'
+          className='bg-slate-100 rounded-lg p-3'
+          onChange={handleChange}
+        />
+         <input
+          defaultValue={currentUser.address}
+          type='text'
+          id='address'
+          placeholder='Address'
+          className='bg-slate-100 rounded-lg p-3'
+          onChange={handleChange}
+        />
         <input
           type='password'
           id='password'
           placeholder='Password'
-          className='bg-slate-100 rounded-lg p-3'
-          onChange={handleChange}
-        />
-        <input
-          defaultValue={currentUser.phone_number}
-          type='text'
-          id='phone_number'
-          placeholder='phone_number'
-          className='bg-slate-100 rounded-lg p-3'
-          onChange={handleChange}
-        />
-        <input
-          defaultValue={currentUser.address}
-          type='text'
-          id='address'
-          placeholder='address'
           className='bg-slate-100 rounded-lg p-3'
           onChange={handleChange}
         />

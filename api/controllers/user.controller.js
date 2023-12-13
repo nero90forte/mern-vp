@@ -42,6 +42,7 @@ export const updateUser = async (req, res, next) => {
           phone_number: req.body.phone_number,
           address: req.body.address,
           otp: req.body.otp,
+          profilePicture: req.body.profilePicture,
         },
       },
       { new: true }

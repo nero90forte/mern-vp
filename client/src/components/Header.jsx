@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import Logo from '../assets/images/logo.png';
 
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
@@ -19,8 +18,6 @@ export default function Header() {
           </h1>
          
         </Link>
-        
-       
         <ul className='flex gap-4'>
           <Link to='/'>
             <li className='hidden sm:inline text-slate-700 hover:underline'>
@@ -32,19 +29,18 @@ export default function Header() {
               About
             </li>
           </Link>
-          <Link to='/monitor'>
+          <Link to='/ringkasan-pasien'>
             {currentUser ? (
               <p>Dashboard</p>
             ) : (
               <li className=' text-slate-700 hover:underline'></li>
             )}
           </Link>
-        
           <Link to='/profile'>
             {currentUser ? (
-              <p>{currentUser.name}</p>
+              <img src={currentUser.profilePicture} alt='profile' className='h-7 w-7 rounded-full object-cover' />
             ) : (
-              <li className=' text-slate-700 hover:underline'> Sign in</li>
+              <li>Sign In</li>
             )}
           </Link>
         </ul>

@@ -22,7 +22,7 @@ function getCurrentUnixTimestamp() {
 
 // Example usage
 const currentUnixTimestamp = getCurrentUnixTimestamp();
-console.log('Current Unix timestamp:', currentUnixTimestamp);
+// console.log('Current Unix timestamp:', currentUnixTimestamp);
 
 
 // Function to encode parameters with HMAC-SHA1
@@ -54,7 +54,7 @@ const parameters = {
 
 const secretKey = '0Rfm7a636xd9JpizLA58HprXe8URsK7maxs&';
 const encodedParams = encodeParametersWithHmacSha1(parameters, secretKey);
-console.log('Encoded parameters:', encodedParams);
+// console.log('Encoded parameters:', encodedParams);
 
 // bodycomposition
 
@@ -79,7 +79,7 @@ async function getAuthorization() {
     console.error('Error get oauth:', Ping.statusText);
   } 
 }
-getAuthorization()
+// getAuthorization()
 
 export async function getPingbodycomposition() {
   
@@ -557,7 +557,7 @@ export async function getPingactivitesmovelQ() {
   }
 }
 
-getPingbodycomposition();
+// getPingbodycomposition();
 // getPingdailies();
 // getPingderegistration();
 // getPingepochs();
