@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import User from '../models/user.model.js';
 import Log from '../models/log.model.js';
+import Aktivitas from '../models/activity.model.js';
 import { errorHandler } from '../utils/error.js';
 
 export const test = async (req, res, next)  => {
@@ -23,6 +24,26 @@ export const test = async (req, res, next)  => {
   }
 };
 
+export const filterLog = async (req, res, next) => {
+  try {
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+
+    const Logs = await Log.find({
+      date:{
+        $gte: startDate,
+        $lte: endDate
+      }
+    });
+    if (!Logs) {
+      return next(errorHandler(404, 'Log not found!'));
+    }
+    res.status(200).json(Logs);
+  } catch (error) {
+    next(error);
+  }
+
+  }
 
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)

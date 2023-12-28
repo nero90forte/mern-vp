@@ -91,50 +91,48 @@ function Summary() {
                             </div>
 
                             <div class="block w-full overflow-x-auto">
-                            <table class="items-center bg-transparent w-full border-collapse ">
-                                <tbody>
-                                <tr>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
-                                   Nama
-                                    </th>
-                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 ">
-                                    {currentUser.name}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                                    Usia
-                                    </th>
-                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                   21
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                                    Jenis Kelamin
-                                    </th>
-                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    Laki-laki
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                                    Alamat
-                                    </th>
-                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    {currentUser.address}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                                    Dokter
-                                    </th>
-                                    <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                    dokter Shafiyah
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <table class="min-w-full bg-white shadow-md rounded-xl">
+                                <thead>
+                                    <tr class="bg-blue-gray-100 text-gray-700">
+                                    <th class="py-3 px-4 text-left">Feature</th>
+                                    <th class="py-3 px-4 text-left">Keterangan</th>
+                                    <th class="py-3 px-4 text-left">Tanggal</th>
+                         
+                                    </tr>
+                                </thead>
+                                <tbody class="text-blue-gray-900">
+                                    <tr class="border-b border-blue-gray-200">
+                                    <td class="py-3 px-4">Faktor Resiko</td>
+                                    <td class="py-3 px-4">-</td>
+                                    <td class="py-3 px-4">-</td>
+                                    </tr>
+
+                                    <tr class="border-b border-blue-gray-200">
+                                    <td class="py-3 px-4">Hasil Prediksi</td>
+                                    <td class="py-3 px-4">-</td>
+                                    <td class="py-3 px-4">-</td>
+                                    </tr>
+
+                                    <tr class="border-b border-blue-gray-200">
+                                    <td class="py-3 px-4">Riwayat Deteksi</td>
+                                    <td class="py-3 px-4">-</td>
+                                    <td class="py-3 px-4">-</td>
+                                    </tr>
+
+                                    <tr class="border-b border-blue-gray-200">
+                                    <td class="py-3 px-4">Rekomendasi Terakhir</td>
+                                    <td class="py-3 px-4">-</td>
+                                    <td class="py-3 px-4">-</td>
+                                    </tr>
+
+                                    <tr class="border-b border-blue-gray-200">
+                                    <td class="py-3 px-4">Treatment Terakhir</td>
+                                    <td class="py-3 px-4">-</td>
+                                    <td class="py-3 px-4">-</td>
+                                    </tr>
+                                   
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
