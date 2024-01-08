@@ -15,7 +15,9 @@ export default function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.id]: e.target.value });
+    setFormData({
+      ...formData, 
+      [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -79,5 +81,5 @@ export default function SignIn() {
       </div>
       {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
     </div>
-  )
+  );
 }

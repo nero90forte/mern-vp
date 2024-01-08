@@ -42,8 +42,9 @@ export default function SignUp() {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
+      <h6 className="text-3xl text-center font-semibold my-7">Or</h6>
       <OAuth />
-            <span class="mb-2 text-gray-900">Or</span>
+        
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
       <input
           type='text'

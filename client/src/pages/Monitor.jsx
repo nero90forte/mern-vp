@@ -12,8 +12,6 @@ export default function Monitor() {
     const [error, setError] = useState(false);
     // Datepicker
     const [formData, setFormData] = useState({});
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
 
     const handleChange = (e) => {
       setFormData({
@@ -26,7 +24,7 @@ export default function Monitor() {
       e.preventDefault();
       try {
         setLoading(true);
-        const res = await fetch(`/api/user/filter?startDate=${startDate}&endDate=${endDate}`, {
+        const res = await fetch(`/api/user/filter/startDate?${startDate}&endDate?${endDate}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -140,12 +138,20 @@ export default function Monitor() {
                 <h3 class="font-semibold text-base text-blueGray-700">Monitoring</h3>
               </div>
               <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-left">
-              <form action="" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <label for="date" class="mb-3 mr-1 text-base font-medium text-[#07074D]">Start Date</label>
-                <input type="date" onChange={handleChange} value={formData.startDate} name="startDate" id="startDate"   class="w-1/4 mr-3 ml-3 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                <input 
+                type="date" 
+                onChange={handleChange} 
+                id='startDate'
+                class="w-1/4 mr-3 ml-3 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 
                 <label for="date" class="mb-3 mr-1 text-base font-medium text-[#07074D]">End Date</label>
-                <input type="date" onChange={handleChange} value={formData.endDate}  name="endDate" id="endDate" class="w-1/4 mr-3 ml-3 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+                <input 
+                type="date" 
+                onChange={handleChange}  
+                id='endDate'
+                class="w-1/4 mr-3 ml-3 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
                 <button class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">simpan</button>
                 </form>
                 </div>
